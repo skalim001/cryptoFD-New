@@ -89,9 +89,9 @@ export async function getCurrentUser() {
     
     return user
   } catch (error) {
-    console.error("[v0] Error in getCurrentUser:", error)
     return null
   }
+}
 }
 
 // Require authenticated user (throws if not authenticated)
