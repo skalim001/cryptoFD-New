@@ -81,7 +81,6 @@ export async function POST(request: NextRequest) {
 
       // Generate JWT token
       const token = await generateToken(user.id)
-      console.log("[v0] Login - Token generated for user:", user.id, "Token length:", token.length)
 
       // Create response with cookie
       const response = NextResponse.json({
@@ -104,7 +103,6 @@ export async function POST(request: NextRequest) {
         maxAge: 60 * 60 * 24 * 7, // 7 days
       })
       
-      console.log("[v0] Login - Cookie set with sameSite=none, secure=true")
       return response
     }
 
@@ -120,7 +118,6 @@ export async function POST(request: NextRequest) {
     await sendOTPEmail(email, loginOtp)
 
     // For debugging: log OTP (remove in production)
-    console.log("[v0] Login OTP for", email, ":", loginOtp)
 
     return NextResponse.json({
       requiresOtp: true,

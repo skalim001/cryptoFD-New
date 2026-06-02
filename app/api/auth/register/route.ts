@@ -9,8 +9,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { email, password, name, referralCode } = body
 
-    console.log("[v0] Register endpoint called with email:", email)
-
     if (!email || !password) {
       return NextResponse.json(
         { error: "Email and password are required" },
@@ -57,7 +55,6 @@ export async function POST(request: NextRequest) {
 
     if (existingUser && !existingUser.isVerified) {
       // Update existing unverified user
-      console.log("[v0] Updating existing unverified user:", existingUser.id)
       await prisma.profile.update({
         where: { id: existingUser.id },
         data: {
@@ -70,7 +67,6 @@ export async function POST(request: NextRequest) {
       })
     } else {
       // Create new user
-      console.log("[v0] Creating new user with email:", email.toLowerCase())
       await prisma.profile.create({
         data: {
           email: email.toLowerCase(),
@@ -86,12 +82,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Send OTP email (will log in dev mode if no API key)
-    console.log("[v0] Sending OTP email to:", email)
     const emailSent = await sendOTPEmail(email, otp)
-    console.log("[v0] OTP Email sent status:", emailSent)
 
     // For debugging: log OTP (remove in production)
-    console.log("[v0] Register OTP for", email, ":", otp)
 
     return NextResponse.json({
       message: "Verification code sent to your email",
