@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: cryptofd
+    env: node
+    region: singapore
+    plan: standard
+    buildCommand: pnpm install && pnpm prisma db push && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: DATABASE_URL
+        scope: build
+        sync: false
+      - key: RESEND_API_KEY
+        scope: build
+        sync: false
+      - key: JWT_SECRET
+        scope: build
+        sync: false
+      - key: MNEMONIC
+        scope: build
+        sync: false
+      - key: HOT_WALLET_ADDRESS
+        scope: build
+        sync: false
+      - key: HOT_WALLET_PRIVATE_KEY
+        scope: build
+        sync: false
+      - key: COLD_WALLET_ADDRESS
+        scope: build
+        sync: false
+      - key: NEXT_PUBLIC_APP_URL
+        scope: build
+        sync: false
