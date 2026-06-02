@@ -92,7 +92,6 @@ export async function getCurrentUser() {
     return null
   }
 }
-}
 
 // Require authenticated user (throws if not authenticated)
 export async function requireAuth() {
